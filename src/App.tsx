@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import './assets/main.css';
-import { HashRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 function App() {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <div className="flex justify-center bg-red-600"> First page</div>
+          <div>Setup</div>
         </Route>
       </Switch>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 
