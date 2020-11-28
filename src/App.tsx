@@ -9,7 +9,7 @@ import Footer from './components/Footer';
 function App(): JSX.Element {
   const [logInPage, setLogInPage] = useState(false);
   return (
-    <HashRouter>
+    <BrowserRouter>
       <Switch>
         <Route exact path="/">
           <LogInPage setLogInPage={setLogInPage} />
