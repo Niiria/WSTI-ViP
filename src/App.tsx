@@ -5,9 +5,14 @@ import { HashRouter, Route, Switch } from 'react-router-dom';
 import LogInPage from './components/LogInPage';
 import MainPage from './components/MainPage';
 import Footer from './components/Footer';
+import Nav from './components/Nav';
+import AnnouncementPage from './components/AnnouncementPage';
+import AuctionsPage from './components/AuctionsPage';
+import AuctionDetails from './components/AuctionDetails';
 
 function App(): JSX.Element {
-  const [logInPage, setLogInPage] = useState(false);
+  const [logInPage, setLogInPage] = useState(true);
+  //CONTROL THE LOGIN
   return (
     <HashRouter>
       <Switch>
@@ -16,17 +21,21 @@ function App(): JSX.Element {
         </Route>
         {logInPage ? (
           <>
+            <Nav />
             <Route exact path="/main">
               <MainPage />
             </Route>
-            <Route exact path="/annoucement">
-              <div>annoucement</div>
+            <Route exact path="/announcement">
+              <AnnouncementPage />
             </Route>
             <Route exact path="/auctions">
-              <div>auctions</div>
+              <AuctionsPage />
             </Route>
             <Route exact path="/auctions/:id">
-              <div>auctions/:id</div>
+              <AuctionDetails />
+            </Route>
+            <Route exact path="/collection">
+              <div>collection</div>
             </Route>
           </>
         ) : (
