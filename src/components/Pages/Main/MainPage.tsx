@@ -1,8 +1,8 @@
 import React from 'react';
-import Annoucement from './Main/Annoucement';
-import HotAuction from './Main/HotAuction';
-import Profile from './Main/Profile';
-import TopUser from './Main/TopUser';
+import Annoucement from './Annoucement';
+import HotAuction from './HotAuction';
+import Profile from './Profile';
+import TopUser from './TopUser';
 
 export default function MainPage() {
   document.title = 'ViP Home';

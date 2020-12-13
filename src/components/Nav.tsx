@@ -1,11 +1,26 @@
-import React, { useState } from 'react';
-import { Link, NavLink, useLocation } from 'react-router-dom';
-import UserIcon from './UserIcon';
+import React, { useEffect, useRef, useState } from 'react';
+import { Link, NavLink, useHistory, useLocation } from 'react-router-dom';
+
+import UserIcon from './Helpers/UserIcon';
 
 export default function Nav() {
   const [userSubMenu, setUserSubMenu] = useState(false);
   const [animation, setAnimation] = useState(false);
   const location = useLocation();
+  const history = useHistory();
+  const animationOn: any = useRef(null);
+  const animationOff: any = useRef(null);
+
+  const handleLogout = () => {
+    localStorage.setItem('login', 'false');
+    history.push('/');
+  };
+  useEffect(() => {
+    return () => {
+      setTimeout(() => clearInterval(animationOn.current), 1);
+      setTimeout(() => clearInterval(animationOff.current), 1);
+    };
+  }, []);
 
   return (
     <nav className="relative flex flex-col lg:flex-row flex-wrap lg:flex-no-wrap lg:h-24 justify-between items-center nav_background">
@@ -15,13 +30,13 @@ export default function Nav() {
           {location.pathname === '/main' ? (
             <img
               className="hidden sm:block"
-              src="/img/navHome_active.png"
+              src="/img/nav/navHome_active.png"
               alt="navHome"
             />
           ) : (
             <img
               className="hidden sm:block"
-              src="/img/navHome.png"
+              src="/img/nav/navHome.png"
               alt="navHome"
             />
           )}
@@ -30,11 +45,11 @@ export default function Nav() {
           className="cursor-pointer lg:hidden"
           onClick={() => {
             setAnimation(false);
-            const timer = setTimeout(() => {
-              setAnimation(true);
-            }, 100);
+            animationOn.current = window.setTimeout(
+              () => setAnimation(true),
+              100
+            );
             setUserSubMenu(true);
-            return () => clearTimeout(timer);
           }}
         >
           <img
@@ -56,16 +71,14 @@ export default function Nav() {
         className="nav_user_background hidden top-0 right-0 lg:relative lg:w-32 lg:h-full lg:flex justify-between items-center lg:mr-4 "
         onMouseEnter={() => {
           setAnimation(false);
-          const timer = setTimeout(() => {
-            setAnimation(true);
-          }, 100);
+          animationOn.current = window.setTimeout(() => {}, 100);
+          setAnimation(true);
           setUserSubMenu(true);
-          return () => clearTimeout(timer);
         }}
       >
         <img
           className="h-full w-1"
-          src="/img/navGoldLine.png"
+          src="/img/nav/navGoldLine.png"
           alt="navLeftLine"
         />
         <UserIcon
@@ -75,7 +88,7 @@ export default function Nav() {
         />
         <img
           className="h-full w-1"
-          src="/img/navGoldLine.png"
+          src="/img/nav/navGoldLine.png"
           alt="navRightLing"
         />
       </div>
@@ -86,22 +99,21 @@ export default function Nav() {
           }`}
           onClick={() => {
             setAnimation(false);
-            const timer = setTimeout(() => {
-              setUserSubMenu(false);
-            }, 400);
-            return () => clearTimeout(timer);
+            animationOff.current = window.setTimeout(
+              () => setAnimation(false),
+              400
+            );
+            setAnimation(false);
           }}
           onMouseLeave={() => {
             setAnimation(false);
-            const timer = setTimeout(() => {
-              setUserSubMenu(false);
-            }, 400);
-            return () => clearTimeout(timer);
+            animationOff.current = window.setTimeout(() => {}, 400);
+            setAnimation(false);
           }}
         >
           <img
             className=" transform rotate-180 w-1"
-            src="/img/navGoldLine.png"
+            src="/img/nav/navGoldLine.png"
             alt="navLeftLine"
           />
           <ul className="flex w-full text-5xl lg:text-3xl flex-col text-gold stroke-black-text-shadow-3px items-center justify-evenly font-sacramento text-center">
@@ -112,12 +124,14 @@ export default function Nav() {
               <NavLink to="/main">Help</NavLink>
             </li>
             <li className="hover:scale-125 transform duration-300">
-              <NavLink to="/">Logout</NavLink>
+              <button type="button" onClick={handleLogout}>
+                Logout
+              </button>
             </li>
           </ul>
           <img
             className="transform rotate-180 w-1 "
-            src="/img/navGoldLine.png"
+            src="/img/nav/navGoldLine.png"
             alt="navRightLing"
           />
         </div>

@@ -1,45 +1,33 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
 import './assets/main.css';
 import { HashRouter, Route, Switch } from 'react-router-dom';
-import LogInPage from './components/LogInPage';
-import MainPage from './components/MainPage';
+import LogInPage from './components/Pages/LogIn/LogInPage';
+import MainPage from './components/Pages/Main/MainPage';
 import Footer from './components/Footer';
 import Nav from './components/Nav';
-import AnnouncementPage from './components/AnnouncementPage';
-import AuctionsPage from './components/AuctionsPage';
-import AuctionDetails from './components/AuctionDetails';
+import AnnouncementPage from './components/Pages/Announcement/AnnouncementPage';
+import AuctionsPage from './components/Pages/Auctions/AuctionsPage';
+import ItemDetails from './components/Helpers/ItemDetails';
+import CollectionPage from './components/Pages/Collection/CollectionPage';
 
 function App(): JSX.Element {
-  const [logInPage, setLogInPage] = useState(true);
-  //CONTROL THE LOGIN
   return (
     <HashRouter>
       <Switch>
-        <Route exact path="/">
-          <LogInPage setLogInPage={setLogInPage} />
-        </Route>
-        {logInPage ? (
+        <Route exact path="/" component={LogInPage} />
+        {localStorage.getItem('login') === 'true' ? (
           <>
             <Nav />
-            <Route exact path="/main">
-              <MainPage />
-            </Route>
-            <Route exact path="/announcement">
-              <AnnouncementPage />
-            </Route>
-            <Route exact path="/auctions">
-              <AuctionsPage />
-            </Route>
-            <Route exact path="/auctions/:id">
-              <AuctionDetails />
-            </Route>
-            <Route exact path="/collection">
-              <div>collection</div>
-            </Route>
+            <Route exact path="/main" component={MainPage} />
+            <Route exact path="/announcement" component={AnnouncementPage} />
+            <Route exact path="/auctions" component={AuctionsPage} />
+            <Route exact path="/auctions/:id" component={ItemDetails} />
+            <Route exact path="/collection" component={CollectionPage} />
+            <Route exact path="/collection/:id" component={ItemDetails} />
           </>
         ) : (
-          <LogInPage setLogInPage={setLogInPage} />
+          <Route path="/" component={LogInPage} />
         )}
       </Switch>
       <Footer />
