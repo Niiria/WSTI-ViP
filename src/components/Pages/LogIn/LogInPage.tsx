@@ -27,8 +27,8 @@ export default function LogInPage() {
       setError(true);
     } else {
       localStorage.setItem('login', 'true');
-      window.location.reload();
       history.push('/main');
+      window.location.reload();
     }
   };
 

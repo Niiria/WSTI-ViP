@@ -45,11 +45,10 @@ export default function Nav() {
           className="cursor-pointer lg:hidden"
           onClick={() => {
             setAnimation(false);
-            animationOn.current = window.setTimeout(
-              () => setAnimation(true),
-              100
-            );
             setUserSubMenu(true);
+            animationOn.current = window.setTimeout(() => {
+              setAnimation(true);
+            }, 100);
           }}
         >
           <img
@@ -71,9 +70,10 @@ export default function Nav() {
         className="nav_user_background hidden top-0 right-0 lg:relative lg:w-32 lg:h-full lg:flex justify-between items-center lg:mr-4 "
         onMouseEnter={() => {
           setAnimation(false);
-          animationOn.current = window.setTimeout(() => {}, 100);
-          setAnimation(true);
           setUserSubMenu(true);
+          animationOn.current = window.setTimeout(() => {
+            setAnimation(true);
+          }, 100);
         }}
       >
         <img
@@ -94,21 +94,20 @@ export default function Nav() {
       </div>
       {userSubMenu ? (
         <div
-          className={`fixed lg:absolute z-50 bottom-0 top-0 right-0 bg-black lg:mt-24 w-full lg:w-32 lg:h-48 flex justify-between lg:mr-4 opacity-0 transition duration-1000 ${
+          className={`fixed lg:absolute z-40 bottom-0 top-0 right-0 bg-black lg:mt-24 w-full lg:w-32 lg:h-48 flex justify-between lg:mr-4 opacity-0 transition duration-1000 ${
             animation ? 'opacity-100' : 'opacity-0'
           }`}
           onClick={() => {
             setAnimation(false);
-            animationOff.current = window.setTimeout(
-              () => setAnimation(false),
-              400
-            );
-            setAnimation(false);
+            animationOff.current = window.setTimeout(() => {
+              setUserSubMenu(false);
+            }, 400);
           }}
           onMouseLeave={() => {
             setAnimation(false);
-            animationOff.current = window.setTimeout(() => {}, 400);
-            setAnimation(false);
+            animationOff.current = window.setTimeout(() => {
+              setUserSubMenu(false);
+            }, 400);
           }}
         >
           <img

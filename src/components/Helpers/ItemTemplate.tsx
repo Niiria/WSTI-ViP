@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 
 interface Props {
   id: number;
+  edit: boolean;
 }
 
-export default function ItemTemplate({ id }: Props) {
+export default function ItemTemplate({ id, edit }: Props) {
   return (
     <div className="min-w-200 flex flex-col gap-1 text-center lg:w-1/5 font-sofia text-2xl p-2 auction_background border-black border-2 rounded-lg">
       <h1 className="break-words h-20">Auction template {id}</h1>
@@ -21,14 +22,25 @@ export default function ItemTemplate({ id }: Props) {
       <p className="px-4 text-base font-bold font-poppins text-center">
         Starting bid: 250000$
       </p>
-      <Link to={`/auctions/${id}`}>
-        <button
-          type="button"
-          className="stroke-black-text-shadow-3px transition duration-500 hover:bg-black auction_btn_background  border-4 px-4 border-black rounded-lg"
-        >
-          <p className="pt-1 text-gold font-sacramento text-2xl">Enter</p>
-        </button>
-      </Link>
+      {edit ? (
+        <Link to={`/collection/${id}`}>
+          <button
+            type="button"
+            className="stroke-black-text-shadow-3px transition duration-500 hover:bg-black auction_btn_background  border-4 px-4 border-black rounded-lg"
+          >
+            <p className="pt-1 text-gold font-sacramento text-2xl">Enter</p>
+          </button>
+        </Link>
+      ) : (
+        <Link to={`/auctions/${id}`}>
+          <button
+            type="button"
+            className="stroke-black-text-shadow-3px transition duration-500 hover:bg-black auction_btn_background  border-4 px-4 border-black rounded-lg"
+          >
+            <p className="pt-1 text-gold font-sacramento text-2xl">Enter</p>
+          </button>
+        </Link>
+      )}
     </div>
   );
 }
